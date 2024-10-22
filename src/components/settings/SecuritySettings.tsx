@@ -31,7 +31,7 @@ const SecuritySettings: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="text-white">
       <h2 className="text-xl font-semibold mb-4">Security Settings</h2>
       <div className="mb-8">
         <h3 className="text-lg font-medium mb-2">Two-Factor Authentication</h3>
@@ -50,10 +50,10 @@ const SecuritySettings: React.FC = () => {
         <h3 className="text-lg font-medium mb-2">Active Sessions</h3>
         <ul className="space-y-2">
           {sessions.map((session) => (
-            <li key={session.id} className="flex justify-between items-center bg-gray-100 p-2 rounded">
+            <li key={session.id} className="flex justify-between items-center bg-gray-800 p-2 rounded">
               <div>
                 <p className="font-medium">{session.device}</p>
-                <p className="text-sm text-gray-600">Last active: {session.lastActive}</p>
+                <p className="text-sm text-gray-300">Last active: {session.lastActive}</p>
               </div>
               <button onClick={() => handleRevokeSession(session.id)} className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700">
                 Revoke
@@ -66,10 +66,10 @@ const SecuritySettings: React.FC = () => {
         <h3 className="text-lg font-medium mb-2">API Access Tokens</h3>
         <ul className="space-y-2">
           {apiTokens.map((token) => (
-            <li key={token.id} className="flex justify-between items-center bg-gray-100 p-2 rounded">
+            <li key={token.id} className="flex justify-between items-center bg-gray-800 p-2 rounded">
               <div>
                 <p className="font-medium">{token.name}</p>
-                <p className="text-sm text-gray-600">Created: {token.created} | Last used: {token.lastUsed}</p>
+                <p className="text-sm text-gray-300">Created: {token.created} | Last used: {token.lastUsed}</p>
               </div>
               <button onClick={() => handleRevokeApiToken(token.id)} className="px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700">
                 Revoke

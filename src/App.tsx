@@ -27,9 +27,9 @@ function App() {
     <Router>
       <div className="flex h-screen">
         <Sidebar logo={<Logo />} items={sidebarItems} />
-        <div className="flex flex-col flex-1 overflow-hidden">
+        <div className="flex-1 ml-16 transition-all duration-300 ease-in-out">
           <Header />
-          <main className="flex-1 overflow-x-hidden overflow-y-auto">
+          <main className="p-6 overflow-x-hidden overflow-y-auto">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/projects" element={<Projects />} />

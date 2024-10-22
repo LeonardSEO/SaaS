@@ -23,7 +23,7 @@ const CustomizationOptions: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="text-white">
       <h2 className="text-xl font-semibold mb-4">Customization Options</h2>
       <div className="space-y-6">
         <div>
@@ -31,7 +31,7 @@ const CustomizationOptions: React.FC = () => {
           <select
             value={theme}
             onChange={handleThemeChange}
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-gray-700 text-white"
           >
             <option value="light">Light</option>
             <option value="dark">Dark</option>
@@ -43,7 +43,7 @@ const CustomizationOptions: React.FC = () => {
           <select
             value={dashboardLayout}
             onChange={handleLayoutChange}
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-gray-700 text-white"
           >
             <option value="default">Default</option>
             <option value="compact">Compact</option>
@@ -55,7 +55,7 @@ const CustomizationOptions: React.FC = () => {
           <select
             value={defaultView}
             onChange={handleDefaultViewChange}
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-gray-700 text-white"
           >
             <option value="overview">Overview</option>
             <option value="analytics">Analytics</option>

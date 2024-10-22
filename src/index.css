@@ -16,6 +16,11 @@ body {
   color: #FFFFFF;
 }
 
+/* Voeg deze regel toe om donkere tekst te hebben op lichte achtergronden */
+.bg-white, .bg-gray-100, .bg-gray-200, .bg-blue-50, .bg-purple-50 {
+  color: #212121;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -44,4 +49,8 @@ input, textarea, select {
 
 input::placeholder, textarea::placeholder {
   color: #a0aec0; /* Lighter gray color for placeholders */
+}
+
+.sidebar-transition {
+  transition: all 0.3s ease-in-out;
 }

@@ -172,7 +172,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="bg-white p-6 font-sans">
+    <div className="bg-white p-6 font-sans rounded-lg shadow-md">
       <div className="mb-6">
         <div className="flex justify-between items-center mb-4">
           <div className="flex space-x-2">

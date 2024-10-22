@@ -1,5 +1,6 @@
 import React from 'react';
 import { MessageSquare, Clock, Settings, Bell } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => (
   <header className="bg-gradient shadow-sm">
@@ -13,9 +14,9 @@ const Header: React.FC = () => (
           <button className="text-gray-300 hover:text-white hover-effect">
             <Clock size={20} />
           </button>
-          <button className="text-gray-300 hover:text-white hover-effect">
+          <Link to="/settings" className="text-gray-300 hover:text-white hover-effect">
             <Settings size={20} />
-          </button>
+          </Link>
           <button className="text-gray-300 hover:text-white hover-effect">
             <Bell size={20} />
           </button>

@@ -28,7 +28,7 @@ const NotificationSettings: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="text-white">
       <h2 className="text-xl font-semibold mb-4">Notification Settings</h2>
       <div className="mb-8">
         <h3 className="text-lg font-medium mb-2">Email Notifications</h3>
@@ -42,8 +42,10 @@ const NotificationSettings: React.FC = () => {
                 onChange={() => handleEmailNotificationChange(key as keyof typeof emailNotifications)}
                 className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
               />
-              <label htmlFor={key} className="ml-2 block text-sm text-gray-900">
-                {key.split(/(?=[A-Z])/).join(' ')}
+              <label htmlFor={key} className="ml-2 block text-sm">
+                {key === 'weeklyReport' && 'Weekly Report'}
+                {key === 'rankingChanges' && 'Ranking Changes'}
+                {key === 'newBacklinks' && 'New Backlinks'}
               </label>
             </div>
           ))}
@@ -53,7 +55,7 @@ const NotificationSettings: React.FC = () => {
         <h3 className="text-lg font-medium mb-2">Custom Alerts</h3>
         <ul className="space-y-2">
           {customAlerts.map((alert) => (
-            <li key={alert.id} className="flex justify-between items-center bg-gray-100 p-2 rounded">
+            <li key={alert.id} className="flex justify-between items-center bg-gray-800 p-2 rounded">
               <span>{alert.name} (Threshold: {alert.threshold})</span>
               <label className="flex items-center cursor-pointer">
                 <div className="relative">

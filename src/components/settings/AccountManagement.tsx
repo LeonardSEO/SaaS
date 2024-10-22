@@ -29,39 +29,39 @@ const AccountManagement: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="text-white">
       <h2 className="text-xl font-semibold mb-4">Account Management</h2>
       <div className="mb-8">
-        <h3 className="text-lg font-medium mb-2">Profile Settings</h3>
+        <h3 className="text-lg font-medium mb-2">Profile Information</h3>
         <form onSubmit={handleProfileUpdate} className="space-y-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+            <label htmlFor="name" className="block text-sm font-medium">Name</label>
             <input
               type="text"
               id="name"
               value={profile.name}
               onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-700 text-white"
             />
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+            <label htmlFor="email" className="block text-sm font-medium">Email</label>
             <input
               type="email"
               id="email"
               value={profile.email}
               onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-700 text-white"
             />
           </div>
           <div>
-            <label htmlFor="role" className="block text-sm font-medium text-gray-700">Role</label>
+            <label htmlFor="role" className="block text-sm font-medium">Role</label>
             <input
               type="text"
               id="role"
               value={profile.role}
               readOnly
-              className="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 bg-gray-600 shadow-sm text-gray-300"
             />
           </div>
           <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
@@ -73,9 +73,9 @@ const AccountManagement: React.FC = () => {
         <h3 className="text-lg font-medium mb-2">Team Management</h3>
         <ul className="space-y-2">
           {teamMembers.map((member) => (
-            <li key={member.id} className="flex justify-between items-center bg-gray-100 p-2 rounded">
+            <li key={member.id} className="flex justify-between items-center bg-gray-800 p-2 rounded">
               <span>{member.name} ({member.email})</span>
-              <span className="text-sm text-gray-600">{member.role}</span>
+              <span className="text-sm text-gray-300">{member.role}</span>
             </li>
           ))}
         </ul>

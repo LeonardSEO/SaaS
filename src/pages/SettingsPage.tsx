@@ -19,7 +19,7 @@ const SettingsPage: React.FC = () => {
   ];
 
   return (
-    <div className="p-6">
+    <div className="p-6 text-white">
       <h1 className="text-2xl font-semibold mb-6">Settings</h1>
       <div className="flex border-b mb-6">
         {tabs.map((tab) => (
@@ -27,8 +27,8 @@ const SettingsPage: React.FC = () => {
             key={tab.id}
             className={`px-4 py-2 font-medium text-sm ${
               activeTab === tab.id
-                ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-gray-600 hover:text-gray-800'
+                ? 'text-blue-400 border-b-2 border-blue-400'
+                : 'text-gray-300 hover:text-white'
             }`}
             onClick={() => setActiveTab(tab.id)}
           >

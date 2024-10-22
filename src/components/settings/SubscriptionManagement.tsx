@@ -9,7 +9,7 @@ const SubscriptionManagement: React.FC = () => {
 
   const [usage, setUsage] = useState({
     apiCalls: 8500,
-    storage: '2.3 GB',
+    storage: 2.3,
     reports: 15,
   });
 
@@ -24,11 +24,11 @@ const SubscriptionManagement: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="text-white">
       <h2 className="text-xl font-semibold mb-4">Subscription Management</h2>
       <div className="mb-8">
-        <h3 className="text-lg font-medium mb-2">Plan Details</h3>
-        <div className="bg-gray-100 p-4 rounded">
+        <h3 className="text-lg font-medium mb-2">Current Subscription</h3>
+        <div className="bg-gray-800 p-4 rounded">
           <p><strong>Current Plan:</strong> {subscription.plan}</p>
           <p><strong>Billing Cycle:</strong> {subscription.billingCycle}</p>
           <p><strong>Next Billing Date:</strong> {subscription.nextBillingDate}</p>
@@ -49,21 +49,21 @@ const SubscriptionManagement: React.FC = () => {
             <span>API Calls</span>
             <span>{usage.apiCalls} / 10,000</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div className="w-full bg-gray-700 rounded-full h-2.5">
             <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${(usage.apiCalls / 10000) * 100}%` }}></div>
           </div>
           <div className="flex justify-between items-center">
             <span>Storage</span>
             <span>{usage.storage} / 5 GB</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div className="w-full bg-gray-700 rounded-full h-2.5">
             <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '46%' }}></div>
           </div>
           <div className="flex justify-between items-center">
             <span>Reports Generated</span>
             <span>{usage.reports} / 20</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div className="w-full bg-gray-700 rounded-full h-2.5">
             <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '75%' }}></div>
           </div>
         </div>
