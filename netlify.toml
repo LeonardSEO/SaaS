@@ -1,16 +1,6 @@
 [build]
   command = "npm run build"
-  environment = {
+  publish = "dist"
+  environment = { 
     VITE_SUPABASE_URL = "https://gwokvseuusbdaifrzyml.supabase.co",
     VITE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3b2t2c2V1dXNiZGFpZnJ6eW1sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk2MDE4NDksImV4cCI6MjA0NTE3Nzg0OX0.dFCd5fCF71GdAzFX6yBbS2AVh9gvt-W7CVGtSASSQE4"
-
-# Context-specific settings (optional, you can add as needed)
-[context.production]
-  publish = "dist"
-  command = "npm run build"
-  environment = { NODE_ENV = "production" }
-
-[context.deploy-preview]
-  publish = "dist"
-  command = "npm run build"
-  environment = { NODE_ENV = "development" }
