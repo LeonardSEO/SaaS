@@ -1,18 +1,43 @@
-import { supabase } from '../config';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 export async function signInWithGoogle() {
-  // This function is not implemented yet to keep the app functional without authentication
-  console.log('Google Sign-In not implemented yet');
+  // Temporarily disabled Google OAuth
+  console.log('Google OAuth sign-in is temporarily disabled');
   return { user: null, session: null };
+  
+  // Original code commented out
+  /*
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
+      scopes: 'https://www.googleapis.com/auth/webmasters.readonly https://www.googleapis.com/auth/analytics.readonly'
+    }
+  });
+
+  if (error) {
+    console.error('Error signing in with Google:', error);
+    throw error;
+  }
+
+  return data;
+  */
 }
 
 export async function signOut() {
-  // This function is not implemented yet to keep the app functional without authentication
-  console.log('Sign-Out not implemented yet');
+  const { error } = await supabase.auth.signOut();
+  if (error) console.error('Error signing out:', error);
 }
 
 export async function getCurrentUser() {
-  // This function is not implemented yet to keep the app functional without authentication
-  console.log('Get Current User not implemented yet');
-  return null;
+  const { data: { user } } = await supabase.auth.getUser();
+  return user;
 }

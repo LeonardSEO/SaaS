@@ -1,7 +1,15 @@
-import { stripe, config } from '../config';
+import Stripe from 'stripe';
+import { config } from '../config';
 
-export async function createCheckoutSession(items: { name: string; price: number; quantity: number }[]) {
-  // This function is a placeholder and will be implemented later
-  console.log('Creating Stripe checkout session...');
-  return 'https://example.com/checkout';
+const stripe = new Stripe(config.stripe.secretKey, { apiVersion: '2023-10-16' });
+
+export async function createCheckoutSession(priceId: string) {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: [{ price: priceId, quantity: 1 }],
+    mode: 'subscription',
+    success_url: config.stripe.successUrl,
+    cancel_url: config.stripe.cancelUrl,
+  });
+  return session.url;
 }

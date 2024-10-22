@@ -5,12 +5,12 @@ import Stripe from 'stripe';
 
 export const config = {
   supabase: {
-    url: process.env.SUPABASE_URL || '',
-    anonKey: process.env.SUPABASE_ANON_KEY || '',
+    url: import.meta.env.VITE_SUPABASE_URL,
+    anonKey: import.meta.env.VITE_SUPABASE_ANON_KEY,
   },
   google: {
-    clientId: process.env.GOOGLE_CLIENT_ID || '',
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+    clientSecret: import.meta.env.VITE_GOOGLE_CLIENT_SECRET,
   },
   openai: {
     apiKey: process.env.OPENAI_API_KEY || '',
@@ -31,9 +31,9 @@ export const openai = new OpenAI({ apiKey: config.openai.apiKey });
 // Initialize Stripe client
 export const stripe = new Stripe(config.stripe.secretKey, { apiVersion: '2023-10-16' });
 
-// Google APIs setup (not initialized here to avoid unnecessary API calls)
-export const googleApis = {
-  oauth2: google.oauth2('v2'),
-  searchconsole: google.webmasters('v3'),
-  ads: google.ads('v14'),
-};
+// Lazy initialization of Google APIs (temporarily disabled)
+export const getGoogleApis = () => ({
+  oauth2: null,
+  searchconsole: null,
+  ads: null,
+});
