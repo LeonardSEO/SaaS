@@ -76,12 +76,14 @@ const DataTools: React.FC = () => {
       if (!url || !keywords) continue;
 
       try {
-        updatedClient.urlData[i].result = { 
+        const initialResult: AnalysisResult = { 
           url, 
           missingKeywords: [], 
           keywordDensity: {},
-          status: 'pending' as const
+          status: 'pending'
         };
+        // Update the type assertion to handle the union type
+        updatedClient.urlData[i] = { ...updatedClient.urlData[i], result: initialResult };
         updateClient(clientIndex, updatedClient);
 
         const response = await fetch(url);
@@ -104,7 +106,7 @@ const DataTools: React.FC = () => {
           url,
           missingKeywords: [],
           keywordDensity: {},
-          status: 'error',
+          status: 'error' as const,
           error: error instanceof Error ? error.message : 'An unknown error occurred'
         };
       }

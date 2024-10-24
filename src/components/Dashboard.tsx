@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { QueriesTable } from './keywords/QueriesTable';
 
 ChartJS.register(
   CategoryScale,
@@ -21,6 +22,36 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+// Add these interfaces at the top of the file, after the imports
+interface Filter {
+  id: string;
+  label: string;
+  value: string;
+}
+
+interface FilterOption {
+  id: string;
+  label: string;
+}
+
+interface ChartTooltipContext {
+  dataset: {
+    label?: string;
+  };
+  parsed: {
+    y: number;
+  };
+}
+
+// Add this interface with the other interfaces at the top
+interface QueryData {
+  query: string;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+}
 
 // Add the missing data
 const datesData = [
@@ -40,8 +71,14 @@ const datesData = [
   { date: "2024-10-06", clicks: 112, impressions: 13838, ctr: 0.81, position: 28.73 },
 ];
 
-const queriesData = [
-  { query: "vloer egaliseren", clicks: 170, impressions: 11863, ctr: 1.43, position: 8.42 },
+const queriesData: QueryData[] = [
+  { 
+    query: "vloer egaliseren",
+    clicks: 170,
+    impressions: 11863,
+    ctr: 1.43,
+    position: 8.42
+  },
   { query: "egaline droogtijd", clicks: 161, impressions: 2392, ctr: 6.73, position: 2.94 },
   { query: "droogtijd egaline", clicks: 127, impressions: 1991, ctr: 6.38, position: 2.84 },
   { query: "egaline", clicks: 115, impressions: 23186, ctr: 0.5, position: 7.8 },
@@ -60,7 +97,7 @@ const Dashboard: React.FC = () => {
   const [dateRange, setDateRange] = useState('Last 28 days');
   const [searchType, setSearchType] = useState('Web');
   const [activeTab, setActiveTab] = useState('QUERIES');
-  const [filters, setFilters] = useState([]);
+  const [filters, setFilters] = useState<Filter[]>([]);
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
 
   const totalClicks = datesData.reduce((sum, day) => sum + day.clicks, 0);
@@ -76,7 +113,7 @@ const Dashboard: React.FC = () => {
     { id: 'wDc8pb', label: 'Search appearance' }
   ];
 
-  const addFilter = (filterId) => {
+  const addFilter = (filterId: string) => {
     const newFilter = filterOptions.find(option => option.id === filterId);
     if (newFilter && !filters.some(f => f.id === filterId)) {
       setFilters([...filters, { ...newFilter, value: '' }]);
@@ -84,11 +121,11 @@ const Dashboard: React.FC = () => {
     setIsFilterMenuOpen(false);
   };
 
-  const removeFilter = (filterId) => {
+  const removeFilter = (filterId: string) => {
     setFilters(filters.filter(f => f.id !== filterId));
   };
 
-  const updateFilterValue = (filterId, value) => {
+  const updateFilterValue = (filterId: string, value: string) => {
     setFilters(filters.map(f => f.id === filterId ? { ...f, value } : f));
   };
 
@@ -119,13 +156,21 @@ const Dashboard: React.FC = () => {
       intersect: false,
     },
     stacked: false,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top' as const,
+        labels: {
+          boxWidth: 12,
+          padding: 8,
+          font: {
+            size: 11
+          }
+        }
       },
       tooltip: {
         callbacks: {
-          label: function(context) {
+          label: function(context: ChartTooltipContext) {
             let label = context.dataset.label || '';
             if (label) {
               label += ': ';
@@ -141,8 +186,13 @@ const Dashboard: React.FC = () => {
     scales: {
       x: {
         grid: {
-          display: false,
+          display: false
         },
+        ticks: {
+          font: {
+            size: 10
+          }
+        }
       },
       y: {
         type: 'linear' as const,
@@ -155,6 +205,11 @@ const Dashboard: React.FC = () => {
         grid: {
           color: 'rgba(0, 0, 0, 0.1)',
         },
+        ticks: {
+          font: {
+            size: 10
+          }
+        }
       },
       y1: {
         type: 'linear' as const,
@@ -167,13 +222,18 @@ const Dashboard: React.FC = () => {
         grid: {
           drawOnChartArea: false,
         },
+        ticks: {
+          font: {
+            size: 10
+          }
+        }
       },
     },
   };
 
   return (
-    <div className="bg-white p-6 font-sans rounded-lg shadow-md">
-      <div className="mb-6">
+    <div className="bg-white p-4 font-sans rounded-lg shadow-md">
+      <div className="mb-4">
         <div className="flex justify-between items-center mb-4">
           <div className="flex space-x-2">
             <div className="relative">
@@ -256,40 +316,42 @@ const Dashboard: React.FC = () => {
           </div>
         )}
 
-        <div className="grid grid-cols-4 gap-4 mb-6">
-          <div className="bg-blue-600 text-white p-4 rounded-lg flex items-center justify-between">
+        <div className="grid grid-cols-4 gap-3 mb-4">
+          <div className="bg-blue-600 text-white p-3 rounded-lg flex items-center justify-between">
             <div>
-              <div className="text-sm font-medium mb-1">Total clicks</div>
-              <div className="text-2xl font-bold">{totalClicks.toLocaleString()}</div>
+              <div className="text-xs font-medium">Total clicks</div>
+              <div className="text-xl font-bold">{totalClicks.toLocaleString()}</div>
             </div>
-            <Info className="w-5 h-5 text-blue-200" />
+            <Info className="w-4 h-4 text-blue-200" />
           </div>
-          <div className="bg-purple-600 text-white p-4 rounded-lg flex items-center justify-between">
+          <div className="bg-purple-600 text-white p-3 rounded-lg flex items-center justify-between">
             <div>
-              <div className="text-sm font-medium mb-1">Total impressions</div>
-              <div className="text-2xl font-bold">{totalImpressions.toLocaleString()}</div>
+              <div className="text-xs font-medium">Total impressions</div>
+              <div className="text-xl font-bold">{totalImpressions.toLocaleString()}</div>
             </div>
-            <Info className="w-5 h-5 text-purple-200" />
+            <Info className="w-4 h-4 text-purple-200" />
           </div>
-          <div className="bg-white border p-4 rounded-lg flex items-center justify-between">
+          <div className="bg-white border p-3 rounded-lg flex items-center justify-between">
             <div>
-              <div className="text-sm font-medium mb-1">Average CTR</div>
-              <div className="text-2xl font-bold">{averageCTR}%</div>
+              <div className="text-xs font-medium">Average CTR</div>
+              <div className="text-xl font-bold">{averageCTR}%</div>
             </div>
-            <Info className="w-5 h-5 text-gray-400" />
+            <Info className="w-4 h-4 text-gray-400" />
           </div>
-          <div className="bg-white border p-4 rounded-lg flex items-center justify-between">
+          <div className="bg-white border p-3 rounded-lg flex items-center justify-between">
             <div>
-              <div className="text-sm font-medium mb-1">Average position</div>
-              <div className="text-2xl font-bold">{averagePosition}</div>
+              <div className="text-xs font-medium">Average position</div>
+              <div className="text-xl font-bold">{averagePosition}</div>
             </div>
-            <Info className="w-5 h-5 text-gray-400" />
+            <Info className="w-4 h-4 text-gray-400" />
           </div>
         </div>
 
-        <div className="mb-6 bg-white p-4 rounded-lg border">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Performance Overview</h3>
-          <Line options={chartOptions} data={chartData} />
+        <div className="mb-4 bg-white p-3 rounded-lg border">
+          <h3 className="text-sm font-medium text-gray-900 mb-2">Performance Overview</h3>
+          <div className="h-64">
+            <Line options={chartOptions} data={chartData} />
+          </div>
         </div>
       </div>
 
@@ -298,7 +360,9 @@ const Dashboard: React.FC = () => {
           {['QUERIES', 'PAGES', 'COUNTRIES', 'DEVICES', 'SEARCH APPEARANCE', 'DATES'].map((tab) => (
             <button
               key={tab}
-              className={`px-4 py-2 font-medium text-sm ${activeTab === tab ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-600 hover:text-gray-800'}`}
+              className={`px-3 py-1.5 text-xs font-medium ${
+                activeTab === tab ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-600 hover:text-gray-800'
+              }`}
               onClick={() => setActiveTab(tab)}
             >
               {tab}
@@ -307,28 +371,7 @@ const Dashboard: React.FC = () => {
         </div>
         <div className="p-4">
           {activeTab === 'QUERIES' && (
-            <table className="w-full">
-              <thead>
-                <tr className="text-left text-sm text-gray-500 border-b">
-                  <th className="py-3 px-4 font-medium">Query</th>
-                  <th className="py-3 px-4 font-medium">Clicks</th>
-                  <th className="py-3 px-4 font-medium">Impressions</th>
-                  <th className="py-3 px-4 font-medium">CTR</th>
-                  <th className="py-3 px-4 font-medium">Position</th>
-                </tr>
-              </thead>
-              <tbody>
-                {queriesData.map((row, index) => (
-                  <tr key={index} className="border-b last:border-b-0 hover:bg-gray-50 cursor-pointer">
-                    <td className="py-3 px-4">{row.query}</td>
-                    <td className="py-3 px-4 text-blue-600 font-medium">{row.clicks}</td>
-                    <td className="py-3 px-4">{row.impressions}</td>
-                    <td className="py-3 px-4">{row.ctr.toFixed(1)}%</td>
-                    <td className="py-3 px-4">{row.position.toFixed(1)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <QueriesTable data={queriesData} showTrends={false} />
           )}
           {activeTab === 'PAGES' && (
             <table className="w-full">

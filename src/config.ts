@@ -13,20 +13,25 @@ export const config = {
     clientSecret: import.meta.env.VITE_GOOGLE_CLIENT_SECRET,
   },
   openai: {
-    apiKey: process.env.OPENAI_API_KEY || '',
+    apiKey: import.meta.env.VITE_OPENAI_API_KEY || '',
   },
   stripe: {
-    secretKey: process.env.STRIPE_SECRET_KEY || '',
-    successUrl: process.env.STRIPE_SUCCESS_URL || 'http://localhost:3000/success',
-    cancelUrl: process.env.STRIPE_CANCEL_URL || 'http://localhost:3000/cancel',
+    secretKey: import.meta.env.VITE_STRIPE_SECRET_KEY || '',
+    publishableKey: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '',
+    successUrl: `${import.meta.env.VITE_BASE_URL || 'http://localhost:3000'}/success`,
+    cancelUrl: `${import.meta.env.VITE_BASE_URL || 'http://localhost:3000'}/cancel`,
+    webhookSecret: import.meta.env.VITE_STRIPE_WEBHOOK_SECRET || '',
   },
 };
 
 // Initialize Supabase client
 export const supabase = createClient(config.supabase.url, config.supabase.anonKey);
 
-// Initialize OpenAI client
-export const openai = new OpenAI({ apiKey: config.openai.apiKey });
+// Initialize OpenAI client with browser safety flag
+export const openai = new OpenAI({ 
+  apiKey: config.openai.apiKey,
+  dangerouslyAllowBrowser: true  // Only use this for development/testing
+});
 
 // Initialize Stripe client
 export const stripe = new Stripe(config.stripe.secretKey, { apiVersion: '2023-10-16' });
